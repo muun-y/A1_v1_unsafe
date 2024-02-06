@@ -16,7 +16,7 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
-const expireTime = 24 * 60 * 60 * 1000; //expires after 1 day  (hours * minutes * seconds * millis)
+const expireTime = 1 * 60 * 60 * 1000; //expires after 1 day  (hours * minutes * seconds * millis)
 
 /* secret information section */
 const mongodb_user = process.env.MONGODB_USER;
@@ -198,26 +198,6 @@ app.get("/members", (req, res) => {
 app.get("/signout", (req, res) => {
   req.session.destroy();
   res.redirect("/");
-});
-
-app.get("/loggedin/info", (req, res) => {
-  res.render("loggedin-info");
-});
-
-app.get("/loggedin/admin", (req, res) => {
-  res.render("admin");
-});
-
-app.get("/loggedin/memberinfo", (req, res) => {
-  res.render("memberInfo", {
-    username: req.session.username,
-    user_type: req.session.user_type,
-  });
-});
-
-app.get("/cat/:id", (req, res) => {
-  var cat = req.params.id;
-  res.render("cat", { cat: cat });
 });
 
 app.get("/api", (req, res) => {
